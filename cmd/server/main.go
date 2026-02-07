@@ -9,6 +9,7 @@ import (
 	"github.com/trenchesdeveloper/mcp-server-store/internal/mcp"
 	"github.com/trenchesdeveloper/mcp-server-store/internal/tools"
 	"github.com/trenchesdeveloper/mcp-server-store/internal/tools/cart"
+	"github.com/trenchesdeveloper/mcp-server-store/internal/tools/orders"
 	"github.com/trenchesdeveloper/mcp-server-store/internal/tools/products"
 )
 
@@ -56,6 +57,10 @@ func main() {
 	cartTools := cart.NewCartToolSet(httpClient, logger)
 	server.RegisterTool(cartTools.AddToCartTool(), cartTools.AddToCartHandler())
 	server.RegisterTool(cartTools.ViewCartTool(), cartTools.ViewCartHandler())
+
+	// Order tools
+	orderTools := orders.NewOrderToolSet(httpClient, logger)
+	server.RegisterTool(orderTools.CreateOrderTool(), orderTools.CreateOrderHandler())
 
 	logger.WithField("tools", len(server.ListTools())).Info("Registered tools")
 
