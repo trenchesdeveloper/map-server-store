@@ -134,11 +134,11 @@ func (c *CartToolSet) ViewCartHandler() mcp.ToolHandler {
 		c.logger.WithField("items", len(resp.Data.CartItems)).Info("Cart retrieved")
 
 		var sb strings.Builder
-		fmt.Fprintf(&sb, "Shopping Cart (ID: %d)\n\n", resp.Data.ID)
 
 		if len(resp.Data.CartItems) == 0 {
-			sb.WriteString("Cart is empty.\n")
+			sb.WriteString("Your cart is empty.")
 		} else {
+			fmt.Fprintf(&sb, "Shopping Cart (ID: %d)\n\n", resp.Data.ID)
 			for i, item := range resp.Data.CartItems {
 				fmt.Fprintf(&sb, "%d. %s (ID: %d) - $%.2f\n",
 					i+1, item.Product.Name, item.Product.ID, item.Product.Price)
