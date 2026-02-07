@@ -7,6 +7,7 @@ import (
 	"github.com/trenchesdeveloper/mcp-server-store/configs"
 	"github.com/trenchesdeveloper/mcp-server-store/internal/client"
 	"github.com/trenchesdeveloper/mcp-server-store/internal/mcp"
+	"github.com/trenchesdeveloper/mcp-server-store/internal/tools"
 )
 
 func main() {
@@ -39,6 +40,9 @@ func main() {
 		mcp.WithInstructions("A store management MCP server."),
 		mcp.WithHTTPClient(httpClient),
 	)
+
+	// Register tools
+	server.RegisterTool(tools.PingTool(), tools.PingHandler())
 
 	logger.WithField("tools", len(server.ListTools())).Info("Registered tools")
 
